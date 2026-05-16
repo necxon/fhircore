@@ -38,6 +38,7 @@ import org.smartregister.fhircore.engine.ui.theme.AppTheme
 import org.smartregister.fhircore.engine.util.extension.applyWindowInsetListener
 import org.smartregister.fhircore.engine.util.extension.isDeviceOnline
 import org.smartregister.fhircore.engine.util.extension.launchActivityWithNoBackStackHistory
+import org.smartregister.fhircore.quest.ui.appsetting.AppSettingActivity
 import org.smartregister.fhircore.quest.ui.main.AppMainActivity
 import org.smartregister.fhircore.quest.ui.pin.PinLoginActivity
 import org.smartregister.p2p.P2PLibrary
@@ -69,7 +70,15 @@ open class LoginActivity : BaseMultiLanguageActivity() {
       intent.extras?.getBoolean(TokenAuthenticator.CANCEL_BACKGROUND_SYNC, false) ?: false
     if (cancelBackgroundSync) workManager.cancelAllWorkByTag(AppSyncWorker::class.java.name)
 
-    navigateToScreen()
+    try {
+      navigateToScreen()
+    } catch (e: NoSuchElementException) {
+      // Process was killed (expired token / memory pressure) and Android restored LoginActivity
+      // from backstack before AppSettingActivity had a chance to reload configsJsonMap.
+      // Redirect to AppSettingActivity to reload configs cleanly.
+      launchActivityWithNoBackStackHistory<AppSettingActivity>()
+      return
+    }
     setContent { AppTheme { LoginScreen(loginViewModel = loginViewModel) } }
   }
 
