@@ -250,6 +250,23 @@
       ]
     },
     {
+      "id": "stockOrderRegister",
+      "display": "Stock Order",
+      "icon": "",
+      "menuIconConfig": {
+        "type": "local",
+        "reference": "ic_inventory"
+      },
+      "showCount": false,
+      "actions": [
+        {
+          "trigger": "ON_CLICK",
+          "workflow": "LAUNCH_REGISTER",
+          "id": "stockOrderRegister"
+        }
+      ]
+    },
+    {
       "id": "serviceDeliveryReports",
       "visible": true,
       "display": "Service Delivery Reports",
