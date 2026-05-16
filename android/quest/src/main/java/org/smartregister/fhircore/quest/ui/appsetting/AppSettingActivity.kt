@@ -61,11 +61,11 @@ class AppSettingActivity : AppCompatActivity() {
     val existingAppId =
       sharedPreferencesHelper.read(SharedPreferenceKey.APP_ID.name, null)?.trimEnd()
 
-    // If app exists load the configs otherwise fetch from the server
+    // If app exists fetch configs (remote-first, falls back to local) otherwise fetch from server
     if (!existingAppId.isNullOrEmpty()) {
       appSettingViewModel.run {
         onApplicationIdChanged(existingAppId)
-        loadConfigurations(appSettingActivity)
+        fetchConfigurations(appSettingActivity)
       }
     } else if (BuildConfig.OPENSRP_APP_ID.isNotEmpty()) {
       appSettingViewModel.onApplicationIdChanged(BuildConfig.OPENSRP_APP_ID)
