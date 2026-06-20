@@ -512,8 +512,14 @@ class QuestionnaireActivity : BaseMultiLanguageActivity() {
 
           val questionnaireResponseInvalid = {
             Timber.e("Invalid questionnaire response")
-            showToast(getString(R.string.questionnaire_response_invalid))
             showProgressDialog(QuestionnaireProgressState.ExtractionInProgress(false))
+            // Blocking dialog (must be acknowledged) instead of a fast toast, so the
+            // worker actually sees why the form was rejected (e.g. quantity over stock).
+            AlertDialogue.showErrorAlert(
+              this@QuestionnaireActivity,
+              getString(R.string.questionnaire_response_invalid),
+            )
+            Unit
           }
 
           handleQuestionnaireSubmission(
