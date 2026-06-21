@@ -17,7 +17,6 @@
 package org.smartregister.fhircore.quest.ui.usersetting
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +26,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -66,10 +64,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
@@ -386,17 +381,16 @@ fun UserSettingScreen(
       ) {
         Spacer(modifier = Modifier.weight(1f))
 
-        Image(
-          painterResource(R.drawable.ic_opensrplogo),
-          "content description",
-          colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) }),
+        Text(
+          color = contentColor,
+          fontWeight = FontWeight.Bold,
+          fontSize = 18.sp,
+          text = "BKM-Lesotho",
           modifier =
             modifier
               .padding(top = 8.dp)
-              .requiredHeight(32.dp)
               .align(Alignment.CenterHorizontally)
               .testTag(OPENSRP_LOGO_TEST_TAG),
-          contentScale = ContentScale.Fit,
         )
 
         Text(
