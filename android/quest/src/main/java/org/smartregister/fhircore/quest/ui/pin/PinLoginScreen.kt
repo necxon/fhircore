@@ -29,7 +29,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
@@ -245,13 +244,12 @@ private fun PinLogoSection(
   Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier.fillMaxWidth()) {
     if (showLogo) {
       Image(
-        painter = painterResource(id = R.drawable.ic_app_logo),
+        painter = painterResource(id = R.drawable.bkm_logo),
         contentDescription = stringResource(id = R.string.app_logo),
         modifier =
           modifier
             .align(Alignment.CenterHorizontally)
             .requiredHeight(applicationConfiguration.loginConfig.logoHeight.dp)
-            .requiredWidth(applicationConfiguration.loginConfig.logoWidth.dp)
             .testTag(PIN_LOGO_IMAGE),
       )
     }

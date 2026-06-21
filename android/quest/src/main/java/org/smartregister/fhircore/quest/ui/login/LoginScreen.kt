@@ -19,6 +19,7 @@
 package org.smartregister.fhircore.quest.ui.login
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -33,6 +34,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.relocation.BringIntoViewRequester
@@ -75,6 +77,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -179,16 +182,14 @@ fun LoginPage(
       Column(modifier = modifier.padding(4.dp), verticalArrangement = Arrangement.Center) {
         // TODO Add configurable logo. Images to be downloaded from server
         if (applicationConfiguration.loginConfig.showLogo) {
-          Text(
-            text = "BKM-Lesotho",
-            color = MaterialTheme.colors.primary,
-            fontWeight = FontWeight.Bold,
-            fontSize = 36.sp,
-            textAlign = TextAlign.Center,
+          Image(
+            painter = painterResource(R.drawable.bkm_logo),
+            contentDescription = stringResource(id = R.string.app_logo),
             modifier =
               modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 16.dp)
+                .requiredHeight(88.dp)
                 .testTag(APP_LOGO_TAG),
           )
         }
