@@ -17,7 +17,6 @@
 package org.smartregister.fhircore.quest.ui.usersetting
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +26,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -383,13 +381,14 @@ fun UserSettingScreen(
       ) {
         Spacer(modifier = Modifier.weight(1f))
 
-        Image(
-          painter = painterResource(R.drawable.bkm_logo),
-          contentDescription = "BKM logo",
+        Text(
+          color = contentColor,
+          fontWeight = FontWeight.Bold,
+          fontSize = 18.sp,
+          text = "BKM-Lesotho",
           modifier =
             modifier
               .padding(top = 8.dp)
-              .requiredHeight(40.dp)
               .align(Alignment.CenterHorizontally)
               .testTag(OPENSRP_LOGO_TEST_TAG),
         )
