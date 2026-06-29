@@ -16,6 +16,8 @@
 
 package org.smartregister.fhircore.quest.util.extensions
 
+import android.app.ActivityManager
+import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -255,6 +257,18 @@ fun ActionConfig.handleClickEvent(
           NavigationArg.QUESTIONNAIRE_CONFIG to questionnaireConfigInterpolated,
         )
       navController.navigate(MainNavigationScreen.AlertDialogFragment.route, args)
+    }
+    ApplicationWorkflow.CLEAR_DATABASE -> {
+      val ctx = navController.context
+      AlertDialog.Builder(ctx)
+        .setTitle("Clear local data")
+        .setMessage("Delete all locally cached FHIR data and restart the app?")
+        .setPositiveButton("Clear & restart") { _, _ ->
+          (ctx.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
+            .clearApplicationUserData()
+        }
+        .setNegativeButton("Cancel", null)
+        .show()
     }
     else -> return
   }

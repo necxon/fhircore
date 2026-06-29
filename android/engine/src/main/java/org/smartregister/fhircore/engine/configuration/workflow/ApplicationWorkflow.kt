@@ -71,4 +71,7 @@ enum class ApplicationWorkflow {
 
   /** A workflow that launches an external application via Intent */
   LAUNCH_EXTERNAL_APP,
+
+  /** [DEBUG] Clears all local FHIR data and restarts the app — toggle via nav config visible:true */
+  CLEAR_DATABASE,
 }
