@@ -61,6 +61,7 @@ data class QuestionnaireConfig(
   val generateCarePlanWithWorkflowApi: Boolean = false,
   val cqlInputResources: List<String>? = emptyList(),
   val showClearAll: Boolean = false,
+  val showSyncButton: Boolean = false,
   val showRequiredTextAsterisk: Boolean = true,
   val showRequiredText: Boolean = false,
   val managingEntityRelationshipCode: String? = null,

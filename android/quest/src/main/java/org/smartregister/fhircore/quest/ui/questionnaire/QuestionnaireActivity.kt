@@ -57,6 +57,7 @@ import org.smartregister.fhircore.engine.domain.model.isReadOnly
 import org.smartregister.fhircore.engine.domain.model.isSummary
 import org.smartregister.fhircore.engine.ui.base.AlertDialogButton
 import org.smartregister.fhircore.engine.ui.base.AlertDialogue
+import org.smartregister.fhircore.engine.sync.SyncBroadcaster
 import org.smartregister.fhircore.engine.ui.base.AlertIntent
 import org.smartregister.fhircore.engine.ui.base.BaseMultiLanguageActivity
 import org.smartregister.fhircore.engine.util.DispatcherProvider
@@ -79,6 +80,8 @@ class QuestionnaireActivity : BaseMultiLanguageActivity() {
   @Inject lateinit var dispatcherProvider: DispatcherProvider
 
   @Inject lateinit var fhirParser: IParser
+
+  @Inject lateinit var syncBroadcaster: SyncBroadcaster
   val viewModel by viewModels<QuestionnaireViewModel>()
   private lateinit var questionnaireConfig: QuestionnaireConfig
   private lateinit var actionParameters: ArrayList<ActionParameter>
@@ -147,6 +150,25 @@ class QuestionnaireActivity : BaseMultiLanguageActivity() {
     viewBinding.questionnaireTitle.text = questionnaireConfig.title
     viewBinding.clearAll.visibility =
       if (questionnaireConfig.showClearAll) View.VISIBLE else View.GONE
+
+    viewBinding.syncNowButton.visibility =
+      if (questionnaireConfig.showSyncButton) View.VISIBLE else View.GONE
+    if (questionnaireConfig.showSyncButton) {
+      viewBinding.syncNowButton.setOnClickListener { view ->
+        view.isEnabled = false
+        showToast(
+          getString(org.smartregister.fhircore.engine.R.string.syncing),
+          Toast.LENGTH_SHORT,
+        )
+        lifecycleScope.launch {
+          try {
+            syncBroadcaster.runOneTimeSync()
+          } finally {
+            view.isEnabled = true
+          }
+        }
+      }
+    }
 
     if (questionnaireConfig.enableSpeechToText) {
       viewBinding.recordSpeechActionButton.setOnClickListener {
